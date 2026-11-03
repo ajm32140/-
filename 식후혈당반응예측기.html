@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>글루캐치온</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#1c2733;--sub:#6b7a8c;--line:#e3e9f0;--main:#2f7df6;--main2:#6aa6ff;--soft:#eaf2ff;--ok:#1c9c5a;--mid:#e8890c;--bad:#d63a3a}
+@media(prefers-color-scheme:dark){:root{--bg:#10161d;--card:#1a232d;--text:#e8eef5;--sub:#93a1b2;--line:#2a3644;--main:#5a9cff;--main2:#2f7df6;--soft:#1d2d44}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.hidden{display:none!important}
+.screen{min-height:100vh;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px;color:#fff;cursor:pointer;user-select:none;background:linear-gradient(160deg,var(--main),var(--main2))}
+#welcome .logo{font-size:64px}#welcome h1{margin:12px 0 4px;font-size:34px}
+#welcome .name{font-size:24px;font-weight:700;letter-spacing:1px}#welcome .tag{font-size:14px;opacity:.9;margin-top:4px}
+#welcome .desc{margin:20px 0;max-width:320px;line-height:1.6;font-size:15px;opacity:.95}
+#welcome .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:36px}
+#welcome .chip{background:rgba(255,255,255,.2);padding:8px 14px;border-radius:20px;font-size:13px}
+#welcome .start{padding:16px 40px;font-size:17px;font-weight:700;border:0;border-radius:30px;background:#fff;color:var(--main);cursor:pointer}
+#welcome .hint{margin-top:16px;font-size:12px;opacity:.8;animation:blink 1.8s infinite}
+@keyframes blink{50%{opacity:.3}}
+header{padding:16px 20px 4px;max-width:960px;margin:0 auto}
+.back{border:0;background:none;color:var(--main);font-size:15px;padding:10px 0;cursor:pointer}
+header h1{margin:4px 0 0;font-size:22px}header p{margin:6px 0 0;color:var(--sub);font-size:14px}
+main{max-width:960px;margin:0 auto;padding:16px 20px 40px;display:grid;gap:16px;grid-template-columns:1fr 1fr;align-items:start}
+@media(max-width:760px){main{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+.col>.card:last-child{margin-bottom:0}.card h2{margin:0 0 12px;font-size:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{font-size:12px;color:var(--sub);display:block}
+input,select{width:100%;margin-top:4px;padding:12px 10px;font-size:16px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text)}
+input:focus{outline:2px solid var(--main)}
+.sec{margin:16px 0 8px;font-size:13px;font-weight:600;color:var(--main);cursor:pointer}.sec small{color:var(--sub);font-weight:400}
+.go{margin-top:18px;width:100%;padding:15px;font-size:16px;font-weight:600;border:0;border-radius:10px;background:var(--main);color:#fff;cursor:pointer}
+.go.sub{background:var(--soft);color:var(--main);margin-top:12px;padding:11px;font-size:14px}
+.chipb{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:20px;padding:8px 13px;font-size:13px;margin:6px 6px 0 0;cursor:pointer}
+.item{display:block;width:100%;text-align:left;padding:10px;margin-top:6px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font-size:14px;cursor:pointer}
+.item small{color:var(--sub)}
+.row{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:14px}.row span{flex:1}
+.row input{width:64px;margin:0;padding:8px}.row select{width:84px;margin:0;padding:8px;font-size:14px}
+.x{border:0;background:none;color:var(--sub);font-size:16px;cursor:pointer}
+.hint2{margin-top:8px;font-size:13px;color:var(--sub);line-height:1.5}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.stat{background:var(--soft);border-radius:10px;padding:12px}.stat small{color:var(--sub);font-size:12px}.stat b{display:block;font-size:22px;margin-top:2px}
+.badge{display:none;margin-bottom:12px;padding:10px 12px;border-radius:10px;font-weight:700;font-size:14px;color:#fff}
+.chart{min-height:200px;border:1px dashed var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--sub);font-size:14px}
+.msg,.guide,.safe{margin-top:12px;padding:12px;border-radius:10px;background:var(--soft);font-size:14px;line-height:1.5;display:none}
+.guide{padding-left:28px}.safe{border:1px solid var(--mid)}
+.hrow{padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}.hrow small{display:block;color:var(--sub)}
+.hrow input{width:140px;padding:6px 8px;font-size:13px;margin-top:6px}
+.timer{margin-top:10px;font-weight:600;color:var(--main);font-size:14px}
+.note{font-size:12px;color:var(--sub);line-height:1.5;margin-top:12px}
+svg{width:100%;height:auto;display:block}
+</style>
+</head>
+<body>
+
+<div id="welcome" class="screen" onclick="go('measure')">
+  <div class="logo">🩸</div>
+  <h1>환영합니다!</h1>
+  <div class="name">글루캐치온</div>
+  <div class="tag">내 혈당을 미리 캐치!</div>
+  <p class="desc">같은 음식을 먹어도 사람마다 혈당은 달라요.<br>먹기 전에 내 식후 혈당 반응을 미리 예측해 보세요.</p>
+  <div class="chips">
+    <span class="chip">🔎 음식 검색</span><span class="chip">🤖 AI 혈당 예측</span>
+    <span class="chip">🔀 행동 시나리오 비교</span><span class="chip">🚫 광고·결제 없음</span>
+  </div>
+  <button class="start" onclick="go('measure');event.stopPropagation();">시작하기</button>
+  <div class="hint">화면을 터치해도 시작돼요</div>
+</div>
+
+<div id="measure" class="screen hidden">
+  <header>
+    <button class="back" onclick="go('welcome')">← 처음으로</button>
+    <h1>식후 혈당 예측</h1>
+    <p>먹을 음식을 검색하고, 내 정보를 입력해 주세요</p>
+  </header>
+  <main>
+    <div class="col">
+      <section class="card">
+        <h2>1. 음식 검색</h2>
+        <input id="q" type="search" placeholder="음식 이름을 검색하세요" oninput="search()">
+        <div id="found"></div>
+        <div id="recent"></div>
+        <div id="picked"></div>
+      </section>
+      <section class="card">
+        <h2>2. 식사 · 개인 정보</h2>
+        <div class="sec">🍚 식사 영양정보 <small>(음식을 고르면 자동 합산 · 직접 수정 가능)</small></div>
+        <div class="grid2">
+          <label>탄수화물 (g)<input id="carbs" type="number" inputmode="decimal"></label>
+          <label>당류 (g)<input id="sugar" type="number" inputmode="decimal"></label>
+          <label>단백질 (g)<input id="protein" type="number" inputmode="decimal"></label>
+          <label>지방 (g)<input id="fat" type="number" inputmode="decimal"></label>
+          <label>식이섬유 (g)<input id="fiber" type="number" inputmode="decimal"></label>
+          <label>열량 (kcal)<input id="kcal" type="number" inputmode="decimal"></label>
+          <label>식사 시각<input id="mealTime" type="time"></label>
+        </div>
+        <button class="go sub" onclick="saveFood()">💾 이 영양정보를 내 음식으로 저장</button>
+        <div class="sec">🙋 개인 정보</div>
+        <div class="grid2">
+          <label>연령<input id="age" type="number" inputmode="numeric"></label>
+          <label>BMI<input id="bmi" type="number" step="0.1" inputmode="decimal"></label>
+          <label>공복혈당 (mg/dL)<input id="fasting" type="number" inputmode="decimal"></label>
+        </div>
+        <details>
+          <summary class="sec">➕ 더 정확하게 <small>(선택 · 눌러서 펼치기)</small></summary>
+          <div class="grid2">
+            <label>수면 (시간)<input id="sleep" type="number" step="0.5" inputmode="decimal"></label>
+            <label>운동 (분/일)<input id="exercise" type="number" inputmode="numeric"></label>
+            <label>스트레스 (1~5)<input id="stress" type="number" min="1" max="5" inputmode="numeric"></label>
+          </div>
+        </details>
+        <button class="go" onclick="run()">예측하기</button>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="card">
+        <h2>3. 결과</h2>
+        <div class="badge" id="badge"></div>
+        <div class="stats">
+          <div class="stat"><small>① 식후 최고 혈당</small><b id="r-peak">—</b></div>
+          <div class="stat"><small>② 최고점 도달 시간</small><b id="r-tp">—</b></div>
+          <div class="stat"><small>③ 혈당 곡선 AUC</small><b id="r-auc">—</b></div>
+          <div class="stat"><small>④ 기준 혈당 회복</small><b id="r-rec">—</b></div>
+        </div>
+        <div class="chart" id="chart">예측 후 혈당 곡선이 표시됩니다</div>
+        <ul class="guide" id="guide"></ul>
+        <div class="safe" id="safe">⚠️ 이 앱은 식후 혈당 반응을 예측하는 도구예요. 체중 감량이나 식사량 제한을 위한 용도가 아니며, 식사 관련 고민은 전문가와 상담해 주세요.</div>
+        <div class="msg" id="msg"></div>
+        <div class="sec">🔀 이렇게 먹으면? <small>(행동을 바꿨을 때 비교)</small></div>
+        <div id="scen"></div><div id="cmp"></div>
+        <button class="go sub" onclick="startTimer()">⏱ 최고점 카운트다운 시작</button>
+        <div class="timer" id="timer"></div>
+        <button class="go sub" onclick="saveHist()">📌 이 결과 기록에 저장</button>
+        <div class="note">※ 참고용 정보이며 의학적 진단·치료를 대체하지 않습니다.</div>
+      </section>
+      <section class="card">
+        <h2>내 예측 기록</h2>
+        <div id="hist"></div>
+        <div class="hint2">식후에 직접 잰 최고혈당을 적으면 예측과의 오차를 볼 수 있어요.</div>
+        <button class="go sub" onclick="exportCsv()">⬇ CSV로 내보내기 (모델 학습용 데이터)</button>
+        <button class="go sub" onclick="clearHist()">기록 모두 지우기</button>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ★ 조원이 채울 곳 ① — 음식 데이터베이스 ★
+   형식 (단위는 여러 개 가능, m = 기본 단위 대비 배수):
+   { name:'치킨(후라이드)', unit:'조각', source:'식약처 DB', carbs:0, sugar:0, protein:0, fat:0, fiber:0, kcal:0,
+     units:[{u:'조각',m:1},{u:'마리',m:8}] },
+   units 를 생략하면 unit 하나만 쓰고, unit 도 없으면 '인분'이 돼요. 영양값은 기본 단위 1개 기준 */
+const FOOD_DB = [
+];
+
+/* 위험도 기준 (예시값 — 팀에서 근거 확인 후 조정) */
+const THRESH = { caution: 140, high: 180 };
+
+/* ★ 조원이 채울 곳 ② — 학습된 모델 연결 ★
+   x = { foods, carbs, sugar, protein, fat, fiber, kcal, mealTime, age, bmi, fasting,
+         sleep, exercise, stress, walkAfterMin }   (선택 항목은 비우면 null, walkAfterMin 은 걷기 시나리오일 때 15)
+   돌려줄 형태: { peak, timeToPeak, iauc, recovery, curve:[[분,혈당],...], guide:['...'] }
+   curve·guide 는 생략 가능, 모델이 없으면 null. (async/await, fetch 사용 가능)
+   guide 에는 칼로리 제한·단식 권고를 넣지 마세요 (화면에서 자동으로 걸러져요) */
+async function predictGlucose(x) {
+  return null;
+}
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LS = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const SV = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+
+function go(n) { location.hash = n; }
+function render() {
+  const m = location.hash === '#measure';
+  $('welcome').classList.toggle('hidden', m);
+  $('measure').classList.toggle('hidden', !m);
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', render);
+
+/* ---------- 음식 검색 · 내 음식 · 최근 음식 ---------- */
+const NUT = ['carbs','sugar','protein','fat','fiber','kcal'];
+const allFoods = () => FOOD_DB.concat(LS('gc_custom', []));
+const U = f => (f.units && f.units.length) ? f.units : [{ u: f.unit || '인분', m: 1 }];
+let picked = [];
+
+function search() {
+  const q = $('q').value.trim().toLowerCase(), box = $('found'), all = allFoods();
+  if (!q) { box.innerHTML = ''; return; }
+  const hits = all.map((f, i) => [f, i]).filter(p => p[0].name.toLowerCase().includes(q)).slice(0, 8);
+  box.innerHTML = hits.length
+    ? hits.map(p => `<button class="item" onclick="addFood(${p[1]})">${esc(p[0].name)} <small>${esc(U(p[0])[0].u)}당 탄수 ${esc(p[0].carbs)}g · 당류 ${esc(p[0].sugar)}g${p[0].source ? ' · 출처 ' + esc(p[0].source) : ''}</small></button>`).join('')
+    : '<div class="hint2">찾는 음식이 없어요. 아래에 영양 정보를 입력하고 “내 음식으로 저장”을 누르면 다음부터 검색돼요.</div>';
+}
+function addFood(i) { pick(allFoods()[i]); $('q').value = ''; $('found').innerHTML = ''; }
+function pick(f) {
+  picked.push({ f, n: 1, ui: 0 });
+  const r = LS('gc_recent', []).filter(x => x.name !== f.name); r.unshift(f); SV('gc_recent', r.slice(0, 8));
+  renderPicked(); renderRecent();
+}
+function renderRecent() {
+  const r = LS('gc_recent', []);
+  $('recent').innerHTML = r.length ? '<div class="hint2">최근 먹은 음식</div>' + r.map((f, i) => `<button class="chipb" onclick="pick(LS('gc_recent',[])[${i}])">${esc(f.name)}</button>`).join('') : '';
+}
+function setN(i, v) { picked[i].n = parseFloat(v) || 1; renderPicked(); }
+function setU(i, v) { picked[i].ui = +v; renderPicked(); }
+function rm(i) { picked.splice(i, 1); renderPicked(); }
+function renderPicked() {
+  $('picked').innerHTML = picked.map((p, i) =>
+    `<div class="row"><span>${esc(p.f.name)}</span><input type="number" min="0.25" step="0.25" value="${p.n}" onchange="setN(${i},this.value)">
+     <select onchange="setU(${i},this.value)">${U(p.f).map((u, j) => `<option value="${j}"${j === p.ui ? ' selected' : ''}>${esc(u.u)}</option>`).join('')}</select>
+     <button class="x" onclick="rm(${i})">✕</button></div>`).join('');
+  if (picked.length) NUT.forEach(k => $(k).value = +picked.reduce((s, p) => s + (p.f[k] || 0) * p.n * U(p.f)[p.ui].m, 0).toFixed(1));
+}
+function saveFood() {
+  const name = prompt('음식 이름을 입력하세요 (예: 치킨 1조각)');
+  if (!name) return;
+  const f = { name: name.trim(), unit: '1회', source: '직접 입력' };
+  for (const k of NUT) { const v = $(k).value; if (v === '') return show('영양 정보 6칸을 먼저 입력해 주세요.'); f[k] = parseFloat(v); }
+  const c = LS('gc_custom', []); c.unshift(f); SV('gc_custom', c.slice(0, 100));
+  show('저장했어요! 다음부터 검색에 나와요.');
+}
+
+/* ---------- 예측 실행 ---------- */
+const REQ = ['carbs','sugar','protein','fat','fiber','kcal','mealTime','age','bmi','fasting'];
+const OPT = ['sleep','exercise','stress'];
+const BAD = /기초대사|굶|단식|칼로리.*(줄|제한|적게)|kcal.*(이하|제한)/;
+let last = null;
+
+async function run() {
+  const x = { foods: picked.map(p => p.f.name + ' ' + p.n + U(p.f)[p.ui].u) };
+  for (const id of REQ) {
+    const v = $(id).value;
+    if (v === '') return show('식사·개인 정보 칸을 모두 입력해 주세요. (선택 입력 제외)');
+    x[id] = id === 'mealTime' ? v : parseFloat(v);
+  }
+  for (const id of OPT) { const v = $(id).value; x[id] = v === '' ? null : parseFloat(v); }
+  show('예측 중...');
+  let res = null;
+  try { res = await predictGlucose(x); } catch (e) { return show('예측 중 오류가 났어요: ' + e.message); }
+  if (!res) return show('아직 학습된 모델이 연결되지 않았어요. 데이터 학습 후 predictGlucose 함수에 연결해 주세요.');
+  last = { x, res };
+  $('cmp').innerHTML = ''; $('timer').textContent = '';
+  showResult(res); show('');
+}
+
+function showResult(r) {
+  $('r-peak').textContent = r.peak + ' mg/dL';
+  $('r-tp').textContent = r.timeToPeak + ' 분';
+  $('r-auc').textContent = r.iauc;
+  $('r-rec').textContent = r.recovery + ' 분';
+  const b = $('badge');
+  const lv = r.peak >= THRESH.high ? ['🔴 혈당 상승 높음', 'var(--bad)'] : r.peak >= THRESH.caution ? ['🟠 혈당 상승 주의', 'var(--mid)'] : ['🟢 혈당 상승 양호', 'var(--ok)'];
+  b.textContent = lv[0]; b.style.background = lv[1]; b.style.display = 'block';
+  const list = [].concat(r.guide || []).filter(t => !BAD.test(t)), g = $('guide');
+  g.innerHTML = list.map(t => `<li>${esc(t)}</li>`).join('');
+  g.style.display = list.length ? 'block' : 'none';
+  $('safe').style.display = last.x.bmi < 18.5 ? 'block' : 'none';
+  if (r.curve) drawChart(r.curve);
+}
+function show(t) { const m = $('msg'); m.textContent = t; m.style.display = t ? 'block' : 'none'; }
+
+function drawChart(pts) {
+  const W = 520, H = 240, L = 44, R = 12, T = 14, B = 30, maxT = Math.max(...pts.map(p => p[0]));
+  const lo = Math.min(...pts.map(p => p[1])) - 10, hi = Math.max(...pts.map(p => p[1])) + 15;
+  const X = t => L + (t / maxT) * (W - L - R), Y = g => T + (1 - (g - lo) / (hi - lo)) * (H - T - B);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join(' ');
+  let ax = `<text x="${L-6}" y="${Y(lo)}" font-size="11" text-anchor="end" fill="var(--sub)">${Math.round(lo)}</text><text x="${L-6}" y="${Y(hi)+10}" font-size="11" text-anchor="end" fill="var(--sub)">${Math.round(hi)}</text>`;
+  for (let t = 0; t <= maxT; t += 60) ax += `<text x="${X(t)}" y="${H-8}" font-size="11" text-anchor="middle" fill="var(--sub)">${t}분</text>`;
+  $('chart').innerHTML = `<svg viewBox="0 0 ${W} ${H}"><path d="${d}" fill="none" stroke="var(--main)" stroke-width="3"/>${ax}</svg>`;
+}
+
+/* ---------- 시나리오 비교 ---------- */
+const SCEN = [
+  { label: '🥬 식이섬유 +5g',   f: x => ({ ...x, fiber: x.fiber + 5 }) },
+  { label: '🍚 탄수화물 -20%',  f: x => ({ ...x, carbs: x.carbs * 0.8 }) },
+  { label: '🚶 식후 15분 걷기', f: x => ({ ...x, walkAfterMin: 15 }) }
+];
+$('scen').innerHTML = SCEN.map((s, i) => `<button class="chipb" onclick="what(${i})">${s.label}</button>`).join('');
+async function what(i) {
+  if (!last) return show('먼저 예측하기를 눌러 주세요.');
+  let r2 = null;
+  try { r2 = await predictGlucose(SCEN[i].f(last.x)); } catch (e) { return show('오류: ' + e.message); }
+  if (!r2) return;
+  const d = r2.peak - last.res.peak;
+  $('cmp').innerHTML += `<div class="hrow">${SCEN[i].label}<small>최고 ${esc(r2.peak)} mg/dL (${d > 0 ? '+' : ''}${d.toFixed(0)}) · 도달 ${esc(r2.timeToPeak)}분</small></div>`;
+}
+
+/* ---------- 최고점 카운트다운 ---------- */
+let tmr = null;
+function startTimer() {
+  if (!last) return show('먼저 예측하기를 눌러 주세요.');
+  clearInterval(tmr);
+  const end = Date.now() + last.res.timeToPeak * 60000;
+  tmr = setInterval(() => {
+    const s = Math.max(0, Math.round((end - Date.now()) / 1000));
+    $('timer').textContent = s ? `⏱ 예상 최고점까지 ${Math.floor(s / 60)}분 ${s % 60}초 — 최고점 전에 가볍게 움직여 보세요` : '📈 지금이 예상 최고점이에요';
+    if (!s) clearInterval(tmr);
+  }, 1000);
+}
+
+/* ---------- 기록: 저장 · 불러오기 · 삭제 · 실제값 · CSV ---------- */
+const hist = () => LS('gc_hist', []);
+function saveHist() {
+  if (!last) return show('저장할 예측 결과가 아직 없어요.');
+  const h = hist();
+  h.unshift({ t: new Date().toLocaleString('ko-KR'), foods: last.x.foods.join(', ') || '직접 입력', x: last.x, peak: last.res.peak, tp: last.res.timeToPeak, actual: null });
+  SV('gc_hist', h.slice(0, 50)); renderHist();
+}
+function setActual(n, v) { const h = hist(); h[n].actual = v === '' ? null : parseFloat(v); SV('gc_hist', h); renderHist(); }
+function del(n) { const h = hist(); h.splice(n, 1); SV('gc_hist', h); renderHist(); }
+function reuse(n) {
+  const x = hist()[n].x; picked = []; renderPicked();
+  [...REQ, ...OPT].forEach(k => $(k).value = (x[k] == null ? '' : x[k]));
+  window.scrollTo(0, 0); show('기록의 입력값을 불러왔어요. 고친 뒤 다시 예측해 보세요.');
+}
+function clearHist() { SV('gc_hist', []); renderHist(); }
+function renderHist() {
+  const h = hist();
+  $('hist').innerHTML = h.length ? h.map((i, n) => {
+    const e = i.actual == null ? '' : ` · 오차 ${(i.actual - i.peak) > 0 ? '+' : ''}${(i.actual - i.peak).toFixed(0)}`;
+    return `<div class="hrow"><b>${esc(i.foods)}</b><small>${esc(i.t)} · 예측 최고 ${esc(i.peak)} mg/dL · ${esc(i.tp)}분${e}</small>
+      <input type="number" placeholder="실제 최고혈당" value="${i.actual == null ? '' : i.actual}" onchange="setActual(${n},this.value)">
+      <button class="chipb" onclick="reuse(${n})">↩ 불러오기</button><button class="chipb" onclick="del(${n})">🗑 삭제</button></div>`;
+  }).join('') : '<div class="hint2">저장된 기록이 없어요</div>';
+}
+function exportCsv() {
+  const h = hist();
+  if (!h.length) return show('내보낼 기록이 없어요.');
+  const cols = [...REQ, ...OPT];
+  const rows = h.map(i => [i.t, i.foods.replace(/,/g, ' /'), ...cols.map(c => (i.x && i.x[c] != null) ? i.x[c] : ''), i.peak, i.tp, i.actual == null ? '' : i.actual]);
+  const csv = '\uFEFF' + [['time', 'foods', ...cols, 'pred_peak', 'pred_time_to_peak', 'actual_peak'], ...rows].map(r => r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = 'glucatchon_records.csv'; a.click();
+}
+
+render(); renderHist(); renderRecent();
+</script>
+</body>
+</html>
